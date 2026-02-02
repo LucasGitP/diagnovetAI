@@ -23,7 +23,7 @@ export async function GET() {
   if (!session) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
-  const user = getUserById(session.id);
+  const user = await getUserById(session.id);
   if (!user) {
     return NextResponse.json({ error: "User not found" }, { status: 404 });
   }
@@ -52,7 +52,7 @@ export async function POST(request: NextRequest) {
       VALID_TITLES.includes(professionalTitle.trim() as ProfessionalTitle)
         ? (professionalTitle.trim() as ProfessionalTitle)
         : undefined;
-    const updated = updateUserProfile(user.id, {
+    const updated = await updateUserProfile(user.id, {
       phone: phone?.trim(),
       professionalTitle: title,
       license: license?.trim(),

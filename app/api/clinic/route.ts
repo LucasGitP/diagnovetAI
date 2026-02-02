@@ -22,7 +22,7 @@ export async function GET() {
   if (!user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
-  const clinic = getClinicByUserId(user.id);
+  const clinic = await getClinicByUserId(user.id);
   return NextResponse.json({ clinic: clinic ?? null });
 }
 
@@ -40,7 +40,7 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       );
     }
-    const clinic = upsertClinic(user.id, {
+    const clinic = await upsertClinic(user.id, {
       legalName: legalName.trim(),
       address: address.trim(),
       phone: phone.trim(),

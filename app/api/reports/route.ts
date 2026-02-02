@@ -26,8 +26,10 @@ export async function GET() {
   if (!user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
-  const reports = getReportsByUserId(user.id);
-  const stats = getReportStats(user.id);
+  const [reports, stats] = await Promise.all([
+    getReportsByUserId(user.id),
+    getReportStats(user.id),
+  ]);
   return NextResponse.json({ reports, stats });
 }
 
@@ -73,7 +75,7 @@ export async function POST(request: NextRequest) {
       );
     }
     const status = requestStatus === "draft" ? "draft" : "active";
-    const report = createReport(
+    const report = await createReport(
       user.id,
       {
         date: String(date).trim(),

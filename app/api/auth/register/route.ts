@@ -42,7 +42,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const user = createUser({
+    const user = await createUser({
       email: email.trim(),
       username: username.trim(),
       password,

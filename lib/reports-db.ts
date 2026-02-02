@@ -1,101 +1,51 @@
-import { readFileSync, writeFileSync, existsSync, mkdirSync } from "fs";
-import path from "path";
+import * as file from "./reports-db-file";
+import * as supabase from "./reports-db-supabase";
+import { hasSupabase } from "./supabase-server";
 import type { ReportRecord } from "./types";
 
-const DATA_DIR = path.join(process.cwd(), "data");
-const REPORTS_FILE = path.join(DATA_DIR, "reports.json");
-
-interface ReportsFile {
-  reports: ReportRecord[];
+export async function getReportsByUserId(
+  userId: string
+): Promise<ReportRecord[]> {
+  if (hasSupabase()) return supabase.getReportsByUserId(userId);
+  return Promise.resolve(file.getReportsByUserId(userId));
 }
 
-function readReportsFile(): ReportsFile {
-  if (!existsSync(REPORTS_FILE)) {
-    return { reports: [] };
-  }
-  const raw = readFileSync(REPORTS_FILE, "utf-8");
-  return JSON.parse(raw) as ReportsFile;
-}
-
-function writeReportsFile(data: ReportsFile): void {
-  if (!existsSync(DATA_DIR)) {
-    mkdirSync(DATA_DIR, { recursive: true });
-  }
-  writeFileSync(REPORTS_FILE, JSON.stringify(data, null, 2), "utf-8");
-}
-
-export function getReportsByUserId(userId: string): ReportRecord[] {
-  const { reports } = readReportsFile();
-  return reports
-    .filter((r) => r.userId === userId)
-    .sort(
-      (a, b) =>
-        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-    );
-}
-
-export function createReport(
+export async function createReport(
   userId: string,
   data: Omit<ReportRecord, "id" | "userId" | "createdAt" | "status">,
   options?: { status?: ReportRecord["status"] }
-): ReportRecord {
-  const file = readReportsFile();
-  const id = `rpt_${Date.now()}`;
-  const status = options?.status === "draft" ? "draft" : "active";
-  const report: ReportRecord = {
-    ...data,
-    id,
-    userId,
-    status,
-    createdAt: new Date().toISOString(),
-  };
-  file.reports.push(report);
-  writeReportsFile(file);
-  return report;
+): Promise<ReportRecord> {
+  if (hasSupabase()) return supabase.createReport(userId, data, options);
+  return Promise.resolve(file.createReport(userId, data, options));
 }
 
-export function getReportById(id: string): ReportRecord | null {
-  const { reports } = readReportsFile();
-  return reports.find((r) => r.id === id) ?? null;
+export async function getReportById(id: string): Promise<ReportRecord | null> {
+  if (hasSupabase()) return supabase.getReportById(id);
+  return Promise.resolve(file.getReportById(id));
 }
 
-export function getReportStats(userId: string): {
+export async function getReportStats(userId: string): Promise<{
   totalReports: number;
   totalPatients: number;
   activeReports: number;
-} {
-  const reports = getReportsByUserId(userId);
-  const uniquePatients = new Set(
-    reports.map((r) => r.animalName.toLowerCase().trim())
-  ).size;
-  const active = reports.filter((r) => r.status === "active").length;
-  return {
-    totalReports: reports.length,
-    totalPatients: uniquePatients,
-    activeReports: active,
-  };
+}> {
+  if (hasSupabase()) return supabase.getReportStats(userId);
+  return Promise.resolve(file.getReportStats(userId));
 }
 
-export function updateReportStatus(
+export async function updateReportStatus(
   id: string,
   userId: string,
   status: ReportRecord["status"]
-): ReportRecord | null {
-  const file = readReportsFile();
-  const idx = file.reports.findIndex((r) => r.id === id && r.userId === userId);
-  if (idx === -1) return null;
-  file.reports[idx] = { ...file.reports[idx], status };
-  writeReportsFile(file);
-  return file.reports[idx];
+): Promise<ReportRecord | null> {
+  if (hasSupabase()) return supabase.updateReportStatus(id, userId, status);
+  return Promise.resolve(file.updateReportStatus(id, userId, status));
 }
 
-export function deleteReport(id: string, userId: string): boolean {
-  const file = readReportsFile();
-  const prev = file.reports.length;
-  file.reports = file.reports.filter(
-    (r) => !(r.id === id && r.userId === userId)
-  );
-  if (file.reports.length === prev) return false;
-  writeReportsFile(file);
-  return true;
+export async function deleteReport(
+  id: string,
+  userId: string
+): Promise<boolean> {
+  if (hasSupabase()) return supabase.deleteReport(id, userId);
+  return Promise.resolve(file.deleteReport(id, userId));
 }

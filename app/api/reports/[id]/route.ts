@@ -37,7 +37,7 @@ export async function PATCH(
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
   const { id } = await params;
-  const report = getReportById(id);
+  const report = await getReportById(id);
   if (!report || report.userId !== user.id) {
     return NextResponse.json({ error: "Not found" }, { status: 404 });
   }
@@ -48,7 +48,7 @@ export async function PATCH(
       typeof status === "string" &&
       VALID_STATUSES.includes(status as ReportRecord["status"])
     ) {
-      const updated = updateReportStatus(
+      const updated = await updateReportStatus(
         id,
         user.id,
         status as ReportRecord["status"]
@@ -76,11 +76,11 @@ export async function DELETE(
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
   const { id } = await params;
-  const report = getReportById(id);
+  const report = await getReportById(id);
   if (!report || report.userId !== user.id) {
     return NextResponse.json({ error: "Not found" }, { status: 404 });
   }
-  const deleted = deleteReport(id, user.id);
+  const deleted = await deleteReport(id, user.id);
   if (!deleted) {
     return NextResponse.json({ error: "Failed to delete" }, { status: 500 });
   }

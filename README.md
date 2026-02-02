@@ -143,7 +143,18 @@ Open [http://localhost:3000](http://localhost:3000). You will be redirected to `
 - **Language**: EN/ES button in header; switches full UI, species, study types, and date format.
 - **Settings**: Personal profile and clinic data; text follows selected language.
 
-The mini database uses `data/users.json`, `data/reports.json`, and `data/clinics.json`. In production this would be replaced by a real backend.
+**Base de datos**
+
+- **Solo local (por defecto)**: usa archivos JSON en `data/` (`users.json`, `reports.json`, `clinics.json`). El login y los datos funcionan solo en tu máquina.
+- **Para que funcione para todos los usuarios** (login, registro, estudios compartidos en producción):
+  1. Crea un proyecto en [Supabase](https://supabase.com).
+  2. En el Dashboard → SQL Editor, ejecuta el contenido de `supabase/schema.sql` para crear las tablas `users`, `clinics` y `reports`.
+  3. En tu despliegue (p. ej. Vercel), define las variables de entorno:
+     - `SUPABASE_URL` (Project Settings → API → Project URL)
+     - `SUPABASE_SERVICE_ROLE_KEY` (Project Settings → API → service_role, secret)
+  4. Vuelve a desplegar. La app detectará estas variables y usará Supabase en lugar de los JSON; el mismo código sirve para todos los usuarios.
+
+Puedes copiar `.env.example` a `.env.local` y rellenar los valores para probar con Supabase en local.
 
 ---
 

@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const user = findUserByEmailOrUsername(emailOrUsername.trim());
+    const user = await findUserByEmailOrUsername(emailOrUsername.trim());
     if (!user) {
       return NextResponse.json(
         { success: false, error: "Usuario o contraseña incorrectos." },
