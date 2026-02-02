@@ -17,8 +17,8 @@ export default async function SettingsPage() {
     getLocaleFromCookie(),
   ]);
 
-  const fullUser = getUserById(user.id);
-  const clinic = getClinicByUserId(user.id);
+  const fullUser = await getUserById(user.id);
+  const clinic = await getClinicByUserId(user.id);
 
   const profile = fullUser
     ? {

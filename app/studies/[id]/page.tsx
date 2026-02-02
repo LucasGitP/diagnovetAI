@@ -20,10 +20,10 @@ export default async function StudyDetailPage({
 
   const copy = await getCopyAsync();
   const { id } = await params;
-  const report = getReportById(id);
+  const report = await getReportById(id);
   if (!report || report.userId !== user.id) notFound();
 
-  const clinic = getClinicByUserId(user.id);
+  const clinic = await getClinicByUserId(user.id);
 
   return (
     <div className="min-h-screen bg-gray-50">

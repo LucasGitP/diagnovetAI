@@ -9,7 +9,7 @@ export default async function AnalyzePage() {
   const user = await getSession();
   if (!user) redirect(ROUTES.login);
 
-  const clinic = getClinicByUserId(user.id);
+  const clinic = await getClinicByUserId(user.id);
 
   return (
     <div className="min-h-screen bg-gray-50">

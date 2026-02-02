@@ -13,8 +13,8 @@ export default async function StudiesPage() {
   if (!user) redirect(ROUTES.login);
 
   const copy = await getCopyAsync();
-  const clinic = getClinicByUserId(user.id);
-  const reports = getReportsByUserId(user.id);
+  const clinic = await getClinicByUserId(user.id);
+  const reports = await getReportsByUserId(user.id);
 
   return (
     <div className="min-h-screen bg-gray-50">
