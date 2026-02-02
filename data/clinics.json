@@ -1,0 +1,32 @@
+{
+  "clinics": [
+    {
+      "userId": "1770059610087",
+      "legalName": "aadad",
+      "address": "adadad",
+      "phone": "1212121212",
+      "updatedAt": "2026-02-02T19:14:02.739Z"
+    },
+    {
+      "userId": "1770060740048",
+      "legalName": "Vet 1234",
+      "address": "Buenos Aires, Argentina. CABA",
+      "phone": "1165865633",
+      "updatedAt": "2026-02-02T19:47:59.391Z"
+    },
+    {
+      "userId": "1770063152680",
+      "legalName": "VET 1",
+      "address": "Buenos Aires, Argentina. CABA",
+      "phone": "+54 9 11 6586 5633",
+      "updatedAt": "2026-02-02T20:39:58.156Z"
+    },
+    {
+      "userId": "1770064843521",
+      "legalName": "VET 3",
+      "address": "CABA",
+      "phone": "+54 9 11 6586 5633",
+      "updatedAt": "2026-02-02T20:41:20.441Z"
+    }
+  ]
+}

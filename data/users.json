@@ -1,0 +1,72 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "email": "fernanda@diagnovet.ai",
+      "username": "FERNANDASVET",
+      "password": "demo123",
+      "fullName": "Fernanda Barbero",
+      "createdAt": "2025-01-15T10:00:00.000Z"
+    },
+    {
+      "id": "2",
+      "email": "demo@diagnovet.ai",
+      "username": "demo",
+      "password": "demo123",
+      "fullName": "Usuario Demo",
+      "createdAt": "2025-01-20T12:00:00.000Z"
+    },
+    {
+      "id": "1770057654677",
+      "email": "lucas@gmail.com",
+      "username": "Lucas123",
+      "password": "Lucas123",
+      "fullName": "Lucas",
+      "createdAt": "2026-02-02T18:40:54.677Z"
+    },
+    {
+      "id": "1770059610087",
+      "email": "lucaas@gmail.com",
+      "username": "Lucas123a",
+      "password": "Lucas123",
+      "fullName": "Lucas",
+      "createdAt": "2026-02-02T19:13:30.087Z",
+      "phone": "1165865633",
+      "professionalTitle": "Dr.",
+      "license": "Mp12"
+    },
+    {
+      "id": "1770060740048",
+      "email": "lucas.berardi2@gmail.com",
+      "username": "Lucas1234",
+      "password": "Lucas1234",
+      "fullName": "Lucas Berardi",
+      "createdAt": "2026-02-02T19:32:20.048Z",
+      "phone": "1165865633",
+      "professionalTitle": "Dr.",
+      "license": "MP 12345"
+    },
+    {
+      "id": "1770063152680",
+      "email": "lucascirilloberardi@gmail.com",
+      "username": "Lucas12345",
+      "password": "Lucas1234",
+      "fullName": "Lucas Cirillo Berardi",
+      "createdAt": "2026-02-02T20:12:32.680Z",
+      "phone": "+54 11 6586 5633",
+      "professionalTitle": "Dr.",
+      "license": "MP 1234"
+    },
+    {
+      "id": "1770064843521",
+      "email": "lucas2@gmail.com",
+      "username": "Lucas2",
+      "password": "Lucas123",
+      "fullName": "Lucas 2",
+      "createdAt": "2026-02-02T20:40:43.521Z",
+      "phone": "+54 9 11 6586 5633",
+      "professionalTitle": "Dr.",
+      "license": "noup"
+    }
+  ]
+}
